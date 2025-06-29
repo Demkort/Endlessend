@@ -1,12 +1,15 @@
 from flask import Flask, render_template, request, redirect
 import gspread
+import os, json
 from oauth2client.service_account import ServiceAccountCredentials
 
 app = Flask(__name__)
 
 # Авторизация в Google Sheets API
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+credentials_json = os.environ.get("GOOGLE_CREDENTIALS_JSON")
+creds_dict = json.loads(credentials_json)
+creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
 # Открываем таблицу по названию
