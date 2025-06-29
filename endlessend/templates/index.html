@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Endlessend</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #1c3d33;
+      --bg-dark: #001f15;
+      --text-light: #fff;
+      --text-muted: rgba(255,255,255,0.5);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background-color: #0a1a14;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-light);
+    }
+
+    header {
+      background-color: #000;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 80px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 2px solid #444;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      height: 80px;
+    }
+
+    .logo img {
+      height: 100%;
+      max-height: 80px;
+      object-fit: contain;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: flex-end;
+      flex: 1 1 auto;
+    }
+
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      font-weight: bold;
+      padding: 5px 10px;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 2px;
+      background-color: #1c3d33;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+      transform-origin: left;
+    }
+
+    nav a:hover::after {
+      transform: scaleX(1);
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 15px;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 10px;
+      }
+    }
+
+    section[id]::before {
+      content: "";
+      display: block;
+      height: 90px;
+      margin-top: -90px;
+      visibility: hidden;
+    }
+
+    .hero {
+      padding: 60px 20px;
+      background-color: #0a1a14;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      margin-bottom: 10px;
+    }
+
+    .hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 400;
+      color: var(--text-light);
+      margin-bottom: 30px;
+    }
+
+    .hero .info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      font-size: 1.1rem;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      text-align: left;
+    }
+
+    .info-item i {
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .info-label {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .info-value {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    /* Slider & Mission Section */
+    #slider-mission {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 60px 20px;
+      background-color: #0a1a14;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .slider-box {
+      flex: 1 1 500px;
+      max-width: 600px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .slider-track {
+      display: flex;
+      transition: transform 0.5s ease;
+      width: 100%;
+    }
+
+    .slider-track img {
+      width: 100%;
+      flex-shrink: 0;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .slider-arrows {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+
+    .slider-arrows button {
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 2rem;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .mission-box {
+      flex: 1 1 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .mission-box h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .mission-box p {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Endlessend logo">
+  </div>
+  <nav>
+    <a href="#slider-mission">Анонсы и слайдер</a>
+    <a href="#osobennosty">Особенности бренда</a>
+    <a href="#detaly">Детали и вдохновение</a>
+    <a href="#minimalism">Ценности</a>
+    <a href="#about">О нас</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Endlessend</h1>
+  <h2>Добро пожаловать в мир премиальной моды</h2>
+  <div class="info">
+    <div class="info-item">
+      <i class="far fa-calendar-alt"></i>
+      <div>
+        <div class="info-label">Дата запуска</div>
+        <div class="info-value">16 мая 2025 года</div>
+      </div>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-map-marker-alt"></i>
+      <div>
+        <div class="info-label">Местоположение</div>
+        <div class="info-value">г. Владивосток</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="slider-mission">
+  <div class="slider-box">
+    <div class="slider-track" id="sliderTrack2">
+      <img src="{{ url_for('static', filename='1.png') }}"/>
+      <img src="{{ url_for('static', filename='2.png') }}"/>
+      <img src="{{ url_for('static', filename='3.png') }}"/>
+      <img src="{{ url_for('static', filename='4.png') }}"/>
+      <img src="{{ url_for('static', filename='5.png') }}"/>
+    </div>
+    <div class="slider-arrows">
+      <button onclick="changeSlide(-1)">&#10094;</button>
+      <button onclick="changeSlide(1)">&#10095;</button>
+    </div>
+  </div>
+
+  <div class="mission-box">
+    <h2>Наша миссия</h2>
+    <p>Создавать одежду, в которой минимализм, эстетика и премиальное качество становятся единым целым. Мы стремимся сделать каждый образ завершённым и комфортным.</p>
+  </div>
+</section>
+
+<script>
+  let index2 = 0;
+  const track2 = document.getElementById('sliderTrack2');
+  const slides2 = track2.children;
+
+  function updateSlider() {
+    track2.style.transform = `translateX(-${index2 * 100}%)`;
+  }
+
+  function changeSlide(dir) {
+    index2 = (index2 + dir + slides2.length) % slides2.length;
+    updateSlider();
+  }
+
+  setInterval(() => changeSlide(1), 4000);
+</script>
+
+
+
+
+
+
+
+<section id="osobennosty" style="background-color: #000; color: white; padding: 60px 20px; display: flex; justify-content: center;">
+  <div style="display: flex; flex-wrap: wrap; max-width: 1200px; width: 100%;">
+    
+    <!-- Левая часть: текст с вертикальным центрированием -->
+    <div style="flex: 1; min-width: 300px; display: flex; align-items: center; padding-right: 40px;">
+      <div>
+        <h3 style="font-size: 14px; letter-spacing: 1px; color: #ccc; margin-bottom: 10px;">ПОЧЕМУ ВЫБИРАЮТ НАШ БРЕНД</h3>
+        <h2 style="font-family: 'Times New Roman', serif; font-size: 32px; margin-bottom: 20px;">ПРЕМИАЛЬНЫЙ СТИЛЬ И КАЧЕСТВО</h2>
+        <p style="line-height: 1.6; margin-bottom: 30px;">
+          Мы предлагаем одежду, которая подчёркивает уникальность каждого клиента. Используем высококачественные материалы и минималистичный дизайн, чтобы создать незабываемый образ.
+        </p>
+        
+        <!-- Иконка 1 -->
+        <div style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+          <img src="{{ url_for('static', filename='galochka.png') }}" alt="Универсальность" style="width: 32px; height: 32px; margin-right: 15px;">
+          <div>
+            <strong>Высокое качество</strong><br>
+            Наши ткани проходят строгий контроль качества.
+          </div>
+        </div>
+
+        <!-- Иконка 2 -->
+        <div style="display: flex; align-items: flex-start;">
+          <img src="{{ url_for('static', filename='list.png') }}" alt="Комфорт" style="width: 32px; height: 32px; margin-right: 15px;">
+          <div>
+            <strong>Экологичность</strong><br>
+            Мы заботимся об окружающей среде, используя экологичные материалы.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Правая часть: изображение -->
+    <div style="flex: 1; min-width: 300px; display: flex; align-items: center; justify-content: center;">
+      <img src="{{ url_for('static', filename='clothes1.jpg') }}" alt="Одежда" style="max-width: 80%; height: auto; border-radius: 8px;">
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+<section id = "detaly" style="background-color: #000; position: relative; padding: 60px 20px 80px 20px; overflow: visible;">
+  <div style="display: flex; flex-wrap: wrap; align-items: center; max-width: 1200px; margin: 0 auto;">
+    
+    <!-- Левая часть: изображение -->
+    <div style="flex: 1; min-width: 300px;">
+      <img src="{{ url_for('static', filename='clothes2.jpg') }}" alt="Ткань" style="width: 100%; height: auto; border-radius: 8px;">
+    </div>
+
+    <!-- Правая часть: текст -->
+    <div style="flex: 1; min-width: 300px; padding-left: 40px; color: white;">
+      <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 20px;">ИЗЫСКАННЫЕ ДЕТАЛИ</h2>
+      <p style="line-height: 1.6;">
+        Каждая деталь нашей одежды создаётся с вниманием и любовью к минимализму. Мы уделяем особое внимание качеству тканей и фурнитуры, чтобы предложить вам одежду, которая будет радовать долгие годы.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- Косой переход вне секции -->
+<div style="position: relative; height: 60px; overflow: hidden; margin-top: -60px;">
+  <svg viewBox="0 0 100 10" preserveAspectRatio="none" style="display: block; width: 100%; height: 100%;">
+    <polygon fill="#0a1a14" points="0,10 100,0 100,10" />
+  </svg>
+</div>
+
+
+
+
+
+
+
+
+<section id="minimalism" style="position: relative; padding: 60px 20px; background-color: #0a1a14; color: #ddd; max-width: 1100px; margin: 0 auto; font-family: 'Roboto', sans-serif;">
+  <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px; text-align: center;">
+    Минимализм в основе
+  </h2>
+  <hr style="width: 80px; border: 1.5px solid #1c3d33; margin: 0 auto 25px;" />
+  <p style="font-size: 1.1rem; line-height: 1.6; max-width: 700px; margin: 0 auto 40px; text-align: center;">
+    Наш бренд воплощает идею минимализма и премиальности. Мы верим, что меньше значит больше, и стремимся создать одежду, которая подчеркивает вашу индивидуальность.
+  </p>
+
+  <div style="position: relative; max-width: 100%; border-radius: 15px; overflow: hidden; cursor: pointer; max-height: 400px;">
+    <img
+      src="{{ url_for('static', filename='clothesend.jpg') }}"
+      alt="Уникальная коллекция"
+      style="width: 100%; height: center; display: auto; object-fit: cover;"
+    />
+  </div>
+</section>
+
+
+
+
+
+
+<section id="about" style="padding: 60px 20px; background-color: #0a1a14; color: #fff;">
+  <div style="max-width: 1100px; margin: 0 auto; text-align: center;">
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 5px;">
+      О нас
+    </h2>
+    <hr style="width: 80px; border: 1.5px solid #1c3d33; margin: 0 auto 25px;" />
+
+    <p style="max-width: 700px; margin: 0 auto 40px; font-size: 1rem; color: rgba(255, 255, 255, 0.8);">
+      Мы создаем одежду для тех, кто ценит стиль, качество и минимализм. Наша цель — предложить вам коллекции, которые станут отражением вашего уникального вкуса.
+    </p>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+
+      <!-- Карточка 1 -->
+      <div style="background-color: #000; border: 1px solid #444; border-radius: 6px; overflow: hidden; width: 300px;">
+        <div style="background-color: #111; color: #fff; padding: 10px;">
+        </div>
+        <img src="{{ url_for('static', filename='1.png') }}" style="width: 100%; display: block;">
+        <div style="padding: 20px; background-color: #000; text-align: center;">
+          <p style="margin: 0; font-size: 0.85rem; color: #ccc;">Цена</p>
+          <p style="font-size: 1.4rem; font-weight: bold;">5 000 ₽</p>
+          <p style="font-size: 0.9rem; color: #ccc;">Элегантные ткани и безупречный крой.</p>
+          <a href="#contacts" style="margin-top: 10px; background-color: #222; color: white; padding: 8px 20px; border: none; border-radius: 20px; font-weight: bold; cursor: pointer;">
+            КУПИТЬ
+          </a>
+        </div>
+      </div>
+
+      <!-- Карточка 2 -->
+      <div style="background-color: #000; border: 1px solid #444; border-radius: 6px; overflow: hidden; width: 300px;">
+        <div style="background-color: #111; color: #fff; padding: 10px;">
+        </div>
+        <img src="{{ url_for('static', filename='2.png') }}" style="width: 100%; display: block;">
+        <div style="padding: 20px; background-color: #000; text-align: center;">
+          <p style="margin: 0; font-size: 0.85rem; color: #ccc;">Цена</p>
+          <p style="font-size: 1.4rem; font-weight: bold;">7 000 ₽</p>
+          <p style="font-size: 0.9rem; color: #ccc;">Одежда из экологически чистых материалов.</p>
+          <a href="#contacts" style="margin-top: 10px; background-color: #222; color: white; padding: 8px 20px; border: none; border-radius: 20px; font-weight: bold; cursor: pointer;">
+            КУПИТЬ
+          </a>
+        </div>
+      </div>
+
+      <!-- Карточка 3 -->
+      <div style="background-color: #000; border: 1px solid #444; border-radius: 6px; overflow: hidden; width: 300px;">
+        <div style="background-color: #111; color: #fff; padding: 10px;">
+        </div>
+        <img src="{{ url_for('static', filename='3.png') }}" style="width: 100%; display: block;">
+        <div style="padding: 20px; background-color: #000; text-align: center;">
+          <p style="margin: 0; font-size: 0.85rem; color: #ccc;">Цена</p>
+          <p style="font-size: 1.4rem; font-weight: bold;">5 000 ₽</p>
+          <p style="font-size: 0.9rem; color: #ccc;">Удобство и стиль для каждого дня.</p>
+          <a href="#contacts" style="margin-top: 10px; background-color: #222; color: white; padding: 8px 20px; border: none; border-radius: 20px; font-weight: bold; cursor: pointer;">
+            КУПИТЬ
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+  
+
+
+
+
+
+<section id="contacts" style="padding: 60px 20px; background-color: #000; color: #ddd; width: 100%; font-family: 'Roboto', sans-serif;">
+  <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; justify-content: center;">
+    
+    <!-- Левая колонка — форма -->
+    <div style="flex: 1 1 500px; min-width: 320px; color: #ddd;">
+      <div style="margin-bottom: 25px;">
+        <h2 style="font-family: 'Playfair Display',  serif; text-align: center; font-size: 1.7rem; margin-bottom: 10px;">Контактные данные</h2>
+        <p style="font-size: 0.95rem; text-align: center; color: #ccc;">Оставьте контактные данные и мы обязательно свяжемся с вами</p>
+      </div>
+
+      <form method="POST" action="/submit" id="contactForm" style="display: flex; text-align: center; flex-wrap: wrap; gap: 15px;" novalidate>
+  <input type="text" name="name" placeholder="Введите имя" required
+         style="flex: 1 1 48%; padding: 30px; border-radius: 6px; border: none; font-size: 1rem;"/>
+  <input type="text" name="lastName" placeholder="Фамилия" required
+         style="flex: 1 1 48%; padding: 30px; border-radius: 6px; border: none; font-size: 1rem;"/>
+  <input type="tel" name="phone" placeholder="Телефон" required
+         style="flex: 1 1 48%; padding: 30px; border-radius: 6px; border: none; font-size: 1rem;"/>
+  <input type="email" name="email" placeholder="Введите email" required
+         style="flex: 1 1 48%; padding: 30px; border-radius: 6px; border: none; font-size: 1rem;"/>
+
+  <label style="flex: 1 1 100%; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none;">
+    <input type="checkbox" id="consentCheckbox" style="width: 16px; height: 16px; cursor: pointer;" required/>
+    <a href="#" id="openConsent" style="color: #4ec08c; text-decoration: underline;">Согласие на обработку персональных данных</a>
+  </label>
+
+  <button type="submit" style="
+    flex: 1 1 100%;
+    background-color: #1c3d33;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 30px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+  " onmouseover="this.style.backgroundColor='#145d28'" onmouseout="this.style.backgroundColor='#1c3d33'">
+    Отправить
+  </button>
+</form>
+    </div>
+
+    <!-- Правая колонка — контактная информация -->
+    <div style="flex: 1 1 400px; min-width: 320px; color: #ddd;">
+  <h2 style="font-family: 'Playfair Display', serif; text-align: center; font-size: 2rem; margin-bottom: 20px;">Свяжитесь с нами</h2>
+  <p style="margin-bottom: 30px; text-align: center; font-size: 1rem; line-height: 1.5; color: #ccc;">
+    Мы всегда готовы ответить на ваши вопросы. Оставьте заявку или позвоните нам, чтобы узнать больше о наших коллекциях.
+  </p>
+
+  <!-- Таблица 2x2 -->
+  <div style="
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0;
+    width: 100%;
+    aspect-ratio: 2/1;
+  ">
+    <!-- Карточка 1 -->
+    <div style="
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+      aspect-ratio: 1/1;
+      border-right: 1px solid white;
+      border-bottom: 1px solid white;
+    ">
+      <i class="fas fa-phone" style="color: #4ec08c; font-size: 1.8rem; margin-bottom: 8px;"></i>
+      <div style="font-weight: 700;">Телефон</div>
+      <div>+7 495 123 45 67</div>
+    </div>
+
+    <!-- Карточка 2 -->
+    <div style="
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+      aspect-ratio: 1/1;
+      border-bottom: 1px solid white;
+    ">
+      <i class="fas fa-envelope" style="color: #4ec08c; font-size: 1.8rem; margin-bottom: 8px;"></i>
+      <div style="font-weight: 700;">Email</div>
+      <div>info@fashionbrand.ru</div>
+    </div>
+
+    <!-- Карточка 3 -->
+    <div style="
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+      aspect-ratio: 1/1;
+      border-right: 1px solid white;
+    ">
+      <i class="fas fa-globe" style="color: #4ec08c; font-size: 1.8rem; margin-bottom: 8px;"></i>
+      <div style="font-weight: 700;">Сайт</div>
+      <div>fashionbrand.ru</div>
+    </div>
+
+    <!-- Карточка 4 -->
+    <div style="
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+      aspect-ratio: 1/1;
+    ">
+      <i class="fas fa-map-marker-alt" style="color: #4ec08c; font-size: 1.8rem; margin-bottom: 8px;"></i>
+      <div style="font-weight: 700;">Адрес</div>
+      <div>г. Владивосток</div>
+    </div>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- Модальное окно согласия -->
+<div id="consentModal" style="
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+">
+  <div style="
+    background: #0a1a14;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    padding: 25px 30px;
+    color: #ddd;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+  ">
+    <h3 style="font-family: 'Playfair Display', serif; margin-bottom: 15px;">Согласие на обработку персональных данных</h3>
+    <p style="font-size: 0.9rem; line-height: 1.5; white-space: pre-line;">
+Настоящим в соответствии с Федеральным законом № 152-ФЗ «О персональных данных» от 27.07.2006 года свободно, своей волей и в своем интересе выражаю свое безусловное согласие на обработку моих персональных данных , зарегистрированным в соответствии с законодательством РФ по адресу:
+(далее по тексту - Оператор).
+1. Согласие дается на обработку одной, нескольких или всех категорий персональных данных, не являющихся специальными или биометрическими, предоставляемых мною, которые могут включать:
+
+- Имя;
+- Фамилия;
+- Телефон;
+- E-mail.
+
+2. Оператор может совершать следующие действия: сбор; запись; систематизация; накопление; хранение; уточнение (обновление, изменение); извлечение; использование; блокирование; удаление; уничтожение.
+
+3. Способы обработки: как с использованием средств автоматизации, так и без их использования.
+
+4. Цель обработки: предоставление мне услуг/работ, включая, направление в мой адрес уведомлений, касающихся предоставляемых услуг/работ, подготовка и направление ответов на мои запросы, направление в мой адрес информации о мероприятиях/товарах/услугах/работах Оператора.
+
+5. В связи с тем, что Оператор может осуществлять обработку моих персональных данных посредством программы для ЭВМ «1С-Битрикс24», я даю свое согласие Оператору на осуществление соответствующего поручения ООО «1С-Битрикс», (ОГРН 5077746476209), зарегистрированному по адресу: 109544, г. Москва, б-р Энтузиастов, д. 2, эт.13, пом. 8-19.
+
+6. Настоящее согласие действует до момента его отзыва путем направления соответствующего уведомления на электронный адрес kmisa4101@gmail.com или направления по адресу .
+
+7. В случае отзыва мною согласия на обработку персональных данных Оператор вправе продолжить обработку персональных данных без моего согласия при наличии оснований, предусмотренных Федеральным законом №152-ФЗ «О персональных данных» от 27.07.2006 г.
+    </p>
+    <div style="display: flex; justify-content: flex-end; gap: 15px; margin-top: 20px;">
+      <button id="acceptConsent" style="
+        background-color: #1c3d33; 
+        border: none; 
+        color: white; 
+        padding: 8px 16px; 
+        border-radius: 8px; 
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      " onmouseover="this.style.backgroundColor='#145d28'" onmouseout="this.style.backgroundColor='#1c3d33'">
+        Принимаю
+      </button>
+      <button id="declineConsent" style="
+        background-color: #444; 
+        border: none; 
+        color: white; 
+        padding: 8px 16px; 
+        border-radius: 8px; 
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      " onmouseover="this.style.backgroundColor='#666'" onmouseout="this.style.backgroundColor='#444'">
+        Не принимаю
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script>
+  // Открытие модального окна по ссылке
+  document.getElementById('openConsent').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('consentModal').style.display = 'flex';
+  });
+
+  // Кнопка "Принимаю" — ставит галочку и закрывает окно
+  document.getElementById('acceptConsent').addEventListener('click', function() {
+    document.getElementById('consentCheckbox').checked = true;
+    document.getElementById('consentModal').style.display = 'none';
+  });
+
+  // Кнопка "Не принимаю" — просто закрывает окно
+  document.getElementById('declineConsent').addEventListener('click', function() {
+    document.getElementById('consentModal').style.display = 'none';
+  });
+
+  // Можно добавить валидацию формы, например:
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    if (!this.checkValidity()) {
+      e.preventDefault();
+      alert('Пожалуйста, заполните все обязательные поля и согласитесь с обработкой персональных данных.');
+    }
+  });
+</script>
+
+
+
+<script>
+  // Плавная прокрутка с учётом высоты шапки
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const headerOffset = document.querySelector('header').offsetHeight;
+      const targetId = this.getAttribute('href').substring(1);
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        const elementPosition = targetEl.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+</script>
+
+
+
+
+<script>
+  let index = 0;
+  const track = document.getElementById('sliderTrack');
+  const total = track.children.length;
+
+  function showSlide(i) {
+    index = (i + total) % total;
+    track.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  function nextSlide() { showSlide(index + 1); }
+  function prevSlide() { showSlide(index - 1); }
+
+  setInterval(nextSlide, 5000);
+</script>
+
+<!-- FontAwesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
